@@ -1,14 +1,8 @@
 !addplugindir /x86-unicode "$%userprofile%\Downloads\Nsisunz\Plugin unicode"
 
 !include LogicLib.nsh
-; example1.nsi
-;
-; This script is perhaps one of the simplest NSIs you can make. All of the
-; optional settings are left to their default settings. The installer simply 
-; prompts the user asking them where to install, and drops a copy of example1.nsi
-; there. 
-;
-; example2.nsi expands on this by adding a uninstaller and start menu shortcuts.
+
+; Simples Script um eine zip aus dem Internet herunterzuladen und dann zu entpacken.
 
 ;--------------------------------
 
@@ -37,14 +31,14 @@ Page instfiles
 ;--------------------------------
 
 Section "Dummy Section" SecDummy
-
+	;inetc-plugin um eine zip herunterzuladen
     inetc::get /POPUP "" /CAPTION "FS22 Mods" "https://cloud.philos-stuff.de/s/bBxxW8GcSYq7TYZ/download" "$EXEDIR\mods.zip"
     Pop $0 # return value = exit code, "OK" if OK
     MessageBox MB_OK "Download Status: $0"
 
 SectionEnd
 Section
-
+;mithilfe von nsiunz wird die zip in ein angegebenes Verzeichnis entpackt
 nsisunz::Unzip "$EXEDIR\mods.zip" $INSTDIR
 Pop $0
 DetailPrint $0 ; "success"
